@@ -1,313 +1,110 @@
-NAME :  Prathamesh Amrutkat 
-Roll no :I3103
-Assignment 01
+echo "ENTER ADDRESS BOOK NAME:    "
+read fname
+touch $fname
+echo -e "ADDRESS BOOK CREATED\n"
+echo -e "NAME\t\t ID \t DOB\t\tADDRESS\t MOB_NO\t\t SALARY">>$fname
+ch=0
+while [ $ch -lt '7' ]
+do
+echo -e "ADDRESS BOOK :\n"
+echo -e "1.CREATE ADDRESS BOOK"
+ echo -e "2.VIEW ADDRESS BOOK"
+echo -e "3.INSERT A RECORD"
+echo -e "4.DELETE A RECORD"
+echo -e "5.MODIFY A RECORD"
+echo -e "6.SEARCH A RECORD"
+echo -e "7.EXIT FROM ADDRESS BOOK"
+echo -e "ENTER YOUR CHOICE"
+read ch
+case $ch in
+	1)echo -e "enter number of records you want to enter \t"
+	  read n
+	  for((i=0;i<$n;i++))
+	  do
+	  	echo -e "ENTER NAME OF EMPLOYEE\t"
+	  	read ename
+	  	echo -e "ENTER ID OF EMPLOYEE\t"
+	  	read eid
+	  	echo -e "ENTER DOB OF EMPLOYEE\t"
+	  	read edob
+	  	echo -e "ENTER ADDRESS OF EMPLOYEE\t"
+	  	read eadd
+	  	echo -e "ENTER MOBILE NO. OF EMPLOYEE\t"
+	  	read emob
+	  	echo -e "ENTER SALARY OF EMPLOYEE\t"
+	  	read esal
+	  	echo -e " $ename \t $eid \t $edob \t $eadd \t $emob \t $esal \n">>$fname
+	  done
+	  ;;
+	  2)
+	  	cat $fname
+	  ;;
+	  3)
+	  	echo -e "enter new record"
+	  	echo -e "ENTER NAME OF EMPLOYEE\t"
+	  	read ename
+	  	echo -e "ENTER ID OF EMPLOYEE\t"
+	  	read eid
+	  	echo -e "ENTER DOB OF EMPLOYEE\t"
+	  	read edob
+	  	echo -e "ENTER ADDRESS OF EMPLOYEE\t"
+	  	read eadd
+	  	echo -e "ENTER MOBILE NO. OF EMPLOYEE\t"
+	  	read emob
+	  	echo -e "ENTER SALARY OF EMPLOYEE\t"
+	  	read esal
+	  	echo -e " $ename \t $eid \t $edob\t\t $eadd \t $emob \t $esal \n">>$fname
+	  ;;
+	  4)
+	  	echo -e "ENTER EMPLOYEE ID TO BE DELETED "
+	  	read eid
+	  	if  grep -w $eid $fname 
+	  	then	
+	  			grep -wv $eid $fname >>temp
+	  			rm $fname
+	  			mv temp $fname
+	  			echo "RECORD DELETED"
 
-Write a program to implement an address book with options given
-below: a) Create address
-book. b) View address book. c) Insert a record. d) Delete a record. e)
-Modify a record. f) Exit
-
-
-prathamesh@linux:~$ sh
-$ fileExists(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        
-        return 1
-    fi
-}
-
-createAddressBook(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        touch Address_Book.txt 
-    fi
-    echo "| Name | Email | Phone Number | Address |" > Address_Book.txt
-}
-
-viewAddressBook(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        echo "Address Book is Not Created. First Create Address Book"
-        return
-    fi
-
-    if [ -s Address_Book.txt ];
-    then
-        cat Address_Book.txt
-    else
-        echo "Address Book is Empty"
-    fi
-}
-
-insertRecord(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        echo "Address Book is Not Created. First Create Address Book"
-        return
-    fi
-
-    read -p "Enter Name: " name
-    read -p "Enter Email: " email
-    read -p "Enter Phone Number: " phone
-    read -p "Enter Address: " address
-
-    
-    echo "| $name | $email | $phone | $address |" >> Address_Book.txt
-
-}
-
-deleteRecord(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        echo "Address Book is Not Created. First Create Address Book"
-        return
-    > fi
-
-    read -p "Enter Name: " name
-    if [ -z "$(grep -i $name Address_Book.txt)" ];
-    then
-        echo "Record Not Found"
-    else
-        sed>  -i "/$name/d" Address_Book.txt
-    fi
-}
-
-searchRecord(){
-    if [ ! -e Address_Book.txt ];
-    then 
->         echo "Address Book is Not Created. First Create Address Book"
->         return
-    fi
-
-    read -p "Enter Name: " name
-    if [ -z "$(grep -i $name Address> _Book.txt)" ];
-    then
-        echo "Record Not Found"
-    else
-        gr> ep -i $name Address_Book.txt
-    fi
-}
-
-updateRecord(){
-    if [ ! -e Address_Book.txt ];
-    then 
-        echo "Address Book is Not Created. First Create Address Book"
-        return
-    fi
-
-    read -p "Enter Name: " name
-
-    if [ -z "$(grep$  -i $name Address_Book.txt)" ];
-    then
-        echo "Record Not Found"
-        return
-$     fi
-
-    sed -i "/$name/d" Address_Book.txt
-    read -p "Enter Email: " email
-    read -p "Enter Phone Number: " phone
->     read -p "Enter Address: " address
-    echo "| $name | $email | $phone | $address |" >> Address_Book.txt
-> }
-
-main(){
-    while true;
-    do
-        echo -e "\nWelcome to Address Book\n"
-       >  echo "1. Create Address Book"
-        echo "2. View Address Book"
-        echo "3. Insert Record"
->         echo "4. Delete Record"
-        echo "5. Search Record"
-        echo "6. Upda> te Record"
-        echo -e "7. Exit\n"
-
-        read -p "Enter Choice: " choice
-
-        case $choice in
-            1)
-    >         createAddressBook
-            ;;
-            2)
-            viewAddressBook
-            ;;
-            3)
-            insertRecord
-            ;;
-$             4)
-            deleteRecord
-            ;;
-            5)
-   $          searchRecord
-            ;;
-            6)
-            updateRecord
-            ;;
-    >         7)
-            exit
-            ;;
-            *)
-            echo "Invalid Choice"
-        >     ;;
-        esac
-    done
-}
-
-main> > > > > > > > > > > $ $ > > > > > > > > > > > > > > > $ $ > > > > > > > > > > > > > > $ $ > > > > > > > > > > > > > > $ $ > > > > > > > > > > > > > > > > > > > > $ $ > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > $ $ 
-
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 1
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 2
-| Name | Email | Phone Number | Address |
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 3
-Enter Name: JAY
-Enter Email: jay@gmail.com         
-Enter Phone Number: 9172553121
-Enter Address: Pune
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 3
-Enter Name: RAM 
-Enter Email: ram@gmail.com
-Enter Phone Number: 9172553122
-Enter Address: Pune
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 2
-| Name | Email | Phone Number | Address |
-| JAY | jay@gmail.com | 9172553121 | Pune |
-| RAM | ram@gmail.com | 9172553122 | Pune |
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 
-Invalid Choice
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 4
-Enter Name: RAM
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 5
-Enter Name: JAY
-| JAY | jay@gmail.com | 9172553121 | Pune |
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 6
-Enter Name: JAY
-Enter Email: jay@gmail.com
-Enter Phone Number: 9172553121
-Enter Address: Pune
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 2
-| Name | Email | Phone Number | Address |
-| JAY | jay@gmail.com | 9172553121 | Pune |
- 
-Welcome to Address Book
-
-1. Create Address Book
-2. View Address Book
-3. Insert Record
-4. Delete Record
-5. Search Record
-6. Update Record
-7. Exit
-
-Enter Choice: 7
-prathamesh@linux:~$ 
-
+	  	else
+	  		echo "RECORD DOES NOT EXIST "
+	  	fi
+	  ;;
+	  5)
+	  	echo "ENTER EMPLOYE  ID TO BE MODIFIY"
+	  	read eid
+	  	if  grep -w $eid $fname 
+	  		then	
+	  			grep -wv $eid $fname >>temp
+	  			rm $fname
+	  			mv temp $fname
+	  			echo -e "enter modified record"
+			  	echo -e "ENTER NAME OF EMPLOYEE\t"
+	  			read ename
+	  			echo -e "ENTER ID OF EMPLOYEE\t"
+	  			read eid
+	  			echo -e "ENTER DOB OF EMPLOYEE\t"
+	  			read edob
+	  			echo -e "ENTER ADDRESS OF EMPLOYEE\t"
+	  			read eadd
+	  			echo -e "ENTER MOBILE NO. OF EMPLOYEE\t"
+	  			read emob
+	  			echo -e "ENTER SALARY OF EMPLOYEE\t"
+	  			read esal
+	  			echo -e " $ename \t $eid \t $edob\t\t $eadd \t $emob \t $esal \n">>$fname
+	  		else
+	  			echo "RECORD DOES NOT EXIST "
+	  	fi
+	  ;;
+	  6)
+	  	echo -e "ENTER EMPLOYEE ID TO BE SEARCHED "
+	  	read eid
+	  	if  grep  $eid $fname 
+	  	then
+	  		grep -w $eid $fname 	
+	  		echo "RECORD FOUND...!!!"
+	  	else
+	  		echo "RECORD DOES NOT EXIST "
+	  	fi
+	  ;;
+	  esac
+done
